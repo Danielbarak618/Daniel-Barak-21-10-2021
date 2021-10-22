@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { ColorModeContext } from './ToggleColorMode'
 
 const Navbar = () => {
+  const colorMode = useContext(ColorModeContext)
   return (
     <header className='header'>
       <a href='#' className='logo'>
@@ -14,6 +16,7 @@ const Navbar = () => {
         <Link to='/favorites' className='link'>
           Favorites
         </Link>
+        <button onClick={colorMode.toggleColorMode}>Change</button>
       </nav>
     </header>
   )

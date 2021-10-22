@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Autocomplete } from '@material-ui/lab'
-import { TextField } from '@material-ui/core'
+import Autocomplete from '@mui/material/Autocomplete'
+import TextField from '@mui/material/TextField'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   loadCitySearch,
@@ -11,8 +11,9 @@ import CityDetails from '../components/CityDetails'
 import FiveDaysList from '../components/FiveDaysList'
 import { useDebounce, useDebouncedCallback } from 'use-debounce'
 import styled from 'styled-components'
+import { Container, Paper } from '@mui/material'
 
-const StyledContainer = styled.div`
+const StyledContainer = styled(Paper)`
   margin-top: 10rem;
   padding: 0.2rem 10rem;
 `

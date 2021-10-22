@@ -9,16 +9,23 @@ import {
   IconButton,
   Card,
   Paper,
-} from '@material-ui/core'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import { makeStyles } from '@material-ui/core/styles'
+} from '@mui/material'
+import { styled } from '@mui/styles'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import makeStyles from '@mui/styles/makeStyles'
 import { addToFavorites } from '../store/actions/weatherActions'
+const StyledPaper = styled(Paper)({
+  padding: 2,
+  margin: 'auto',
+  maxWidth: 700,
+  marginBottom: 30,
+})
 
 const CityDetails = ({ cityName, cityKey }) => {
   const { currCity } = useSelector((state) => state.weatherModule)
   const dispatch = useDispatch()
 
-  const useStyles = makeStyles((theme) => ({
+  const useStyles = makeStyles(() => ({
     root: {
       flexGrow: 1,
     },
@@ -26,7 +33,7 @@ const CityDetails = ({ cityName, cityKey }) => {
       textAlign: 'center',
     },
     paperBox: {
-      padding: theme.spacing(2),
+      padding: 2,
       margin: 'auto',
       maxWidth: 700,
       marginBottom: 30,
@@ -70,42 +77,40 @@ const CityDetails = ({ cityName, cityKey }) => {
   // console.log(currCity)
   return (
     <>
-      <Paper className={classes.paperBox}>
-        <div className='container'>
-          <Grid container spacing={2}>
-            <Grid item>
-              <IconButton color='primary'>
-                <FavoriteIcon onClick={addFavoriteLocation} />
-              </IconButton>
-            </Grid>
-            <Grid item>
-              <img
-                src={images[[currCity[0].WeatherIcon]]}
-                alt='weather-icon'
-                className={classes.img}
-              />
-            </Grid>
+      <StyledPaper>
+        <Grid container spacing={2}>
+          <Grid item>
+            <IconButton color='primary'>
+              <FavoriteIcon onClick={addFavoriteLocation} />
+            </IconButton>
+          </Grid>
+          <Grid item>
+            <img
+              src={images[[currCity[0].WeatherIcon]]}
+              alt='weather-icon'
+              className={classes.img}
+            />
+          </Grid>
 
-            <Grid item xs className={classes.topText}>
-              <Typography variant='h5'>{cityName}</Typography>
-            </Grid>
-            {currCity[0].Temperature.Metric.Value}
-            {currCity[0].Temperature.Metric.Unit}
+          <Grid item xs className={classes.topText}>
+            <Typography variant='h5'>{cityName}</Typography>
           </Grid>
-          <Grid
-            container
-            item
-            xs={2}
-            justifyContent='flex-end'
-            alignItems='center'
-          ></Grid>
-          <Grid item xs={12}>
-            <Box className={classes.paper} m={4}>
-              <Typography variant='h2'>{currCity[0].WeatherText}</Typography>
-            </Box>
-          </Grid>
-        </div>
-      </Paper>
+          {currCity[0].Temperature.Metric.Value}
+          {currCity[0].Temperature.Metric.Unit}
+        </Grid>
+        <Grid
+          container
+          item
+          xs={2}
+          justifyContent='flex-end'
+          alignItems='center'
+        ></Grid>
+        <Grid item xs={12}>
+          <Box className={classes.paper} m={4}>
+            <Typography variant='h2'>{currCity[0].WeatherText}</Typography>
+          </Box>
+        </Grid>
+      </StyledPaper>
     </>
   )
 }

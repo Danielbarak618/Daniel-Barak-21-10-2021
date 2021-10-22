@@ -6,11 +6,13 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { Provider } from 'react-redux'
 import { store } from './store'
+import ToggleColorMode from './components/ToggleColorMode'
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App style={{}} />
+      {/* Renders up with chosen mode */}
+      <ToggleColorMode />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
