@@ -1,0 +1,12 @@
+//SETUP
+@import 'setup/variables';
+@import 'setup/mixins';
+@import 'basics/base';
+
+//Components
+@import 'components/navbar';
+@import 'components/cityDetails';
+@import 'components/forecastList';
+@import 'components/home';
+
+//
