@@ -73,7 +73,7 @@ const Home = () => {
         setCityName(currCityName)
       })
     }
-  }, [dispatch, currCityName, isFromGeo, currCityKey])
+  }, [dispatch, isFromGeo, currCityName])
 
   useEffect(() => {
     if (location.state) {
@@ -82,13 +82,13 @@ const Home = () => {
       setCityName(location.state.favoriteParams.name)
       setCityKey(location.state.favoriteParams.key)
       delete location.state
-    } else {
+    } else if (!isFromGeo) {
       dispatch(loadCityByKey(cityKey))
       dispatch(loadFiveDaysForecast(cityKey))
     }
 
     dispatch(loadCitySearch(citiesSearch))
-  }, [citiesSearch, currCityKey, location, dispatch])
+  }, [citiesSearch, currCityKey, location, dispatch, cityKey])
 
   return (
     <StyledContainer>

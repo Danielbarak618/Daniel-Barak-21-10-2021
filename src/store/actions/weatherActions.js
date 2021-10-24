@@ -34,6 +34,7 @@ export function loadCityByCoords(position) {
   return async (dispatch) => {
     try {
       const cityKey = await weatherService.getCityByCoords(position)
+      console.log(cityKey)
       const city = await weatherService.getCityByCode(cityKey.Key)
       const fiveDaysForecast = await weatherService.loadFiveDaysForecast(
         cityKey.Key
