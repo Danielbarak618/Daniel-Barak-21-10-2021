@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/Danielbarak618/Daniel-Barak-21-10-2021/static/css/main.6595c493.chunk.css",
-    "main.js": "/Danielbarak618/Daniel-Barak-21-10-2021/static/js/main.65055856.chunk.js",
-    "main.js.map": "/Danielbarak618/Daniel-Barak-21-10-2021/static/js/main.65055856.chunk.js.map",
-    "runtime-main.js": "/Danielbarak618/Daniel-Barak-21-10-2021/static/js/runtime-main.c0a866ee.js",
-    "runtime-main.js.map": "/Danielbarak618/Daniel-Barak-21-10-2021/static/js/runtime-main.c0a866ee.js.map",
-    "static/js/2.272e7c34.chunk.js": "/Danielbarak618/Daniel-Barak-21-10-2021/static/js/2.272e7c34.chunk.js",
-    "static/js/2.272e7c34.chunk.js.map": "/Danielbarak618/Daniel-Barak-21-10-2021/static/js/2.272e7c34.chunk.js.map",
-    "static/js/3.0706aa78.chunk.js": "/Danielbarak618/Daniel-Barak-21-10-2021/static/js/3.0706aa78.chunk.js",
-    "static/js/3.0706aa78.chunk.js.map": "/Danielbarak618/Daniel-Barak-21-10-2021/static/js/3.0706aa78.chunk.js.map",
-    "index.html": "/Danielbarak618/Daniel-Barak-21-10-2021/index.html",
-    "static/css/main.6595c493.chunk.css.map": "/Danielbarak618/Daniel-Barak-21-10-2021/static/css/main.6595c493.chunk.css.map",
-    "static/js/2.272e7c34.chunk.js.LICENSE.txt": "/Danielbarak618/Daniel-Barak-21-10-2021/static/js/2.272e7c34.chunk.js.LICENSE.txt",
-    "static/media/15.9aac7942.png": "/Danielbarak618/Daniel-Barak-21-10-2021/static/media/15.9aac7942.png",
-    "static/media/16.02f6796a.png": "/Danielbarak618/Daniel-Barak-21-10-2021/static/media/16.02f6796a.png",
-    "static/media/17.4b8d4543.png": "/Danielbarak618/Daniel-Barak-21-10-2021/static/media/17.4b8d4543.png",
-    "static/media/41.da896071.png": "/Danielbarak618/Daniel-Barak-21-10-2021/static/media/41.da896071.png"
+    "main.css": "/Daniel-Barak-21-10-2021/static/css/main.6595c493.chunk.css",
+    "main.js": "/Daniel-Barak-21-10-2021/static/js/main.65055856.chunk.js",
+    "main.js.map": "/Daniel-Barak-21-10-2021/static/js/main.65055856.chunk.js.map",
+    "runtime-main.js": "/Daniel-Barak-21-10-2021/static/js/runtime-main.3b36f5d2.js",
+    "runtime-main.js.map": "/Daniel-Barak-21-10-2021/static/js/runtime-main.3b36f5d2.js.map",
+    "static/js/2.06c995d2.chunk.js": "/Daniel-Barak-21-10-2021/static/js/2.06c995d2.chunk.js",
+    "static/js/2.06c995d2.chunk.js.map": "/Daniel-Barak-21-10-2021/static/js/2.06c995d2.chunk.js.map",
+    "static/js/3.0706aa78.chunk.js": "/Daniel-Barak-21-10-2021/static/js/3.0706aa78.chunk.js",
+    "static/js/3.0706aa78.chunk.js.map": "/Daniel-Barak-21-10-2021/static/js/3.0706aa78.chunk.js.map",
+    "index.html": "/Daniel-Barak-21-10-2021/index.html",
+    "static/css/main.6595c493.chunk.css.map": "/Daniel-Barak-21-10-2021/static/css/main.6595c493.chunk.css.map",
+    "static/js/2.06c995d2.chunk.js.LICENSE.txt": "/Daniel-Barak-21-10-2021/static/js/2.06c995d2.chunk.js.LICENSE.txt",
+    "static/media/15.9aac7942.png": "/Daniel-Barak-21-10-2021/static/media/15.9aac7942.png",
+    "static/media/16.02f6796a.png": "/Daniel-Barak-21-10-2021/static/media/16.02f6796a.png",
+    "static/media/17.4b8d4543.png": "/Daniel-Barak-21-10-2021/static/media/17.4b8d4543.png",
+    "static/media/41.da896071.png": "/Daniel-Barak-21-10-2021/static/media/41.da896071.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.c0a866ee.js",
-    "static/js/2.272e7c34.chunk.js",
+    "static/js/runtime-main.3b36f5d2.js",
+    "static/js/2.06c995d2.chunk.js",
     "static/css/main.6595c493.chunk.css",
     "static/js/main.65055856.chunk.js"
   ]
