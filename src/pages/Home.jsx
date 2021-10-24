@@ -80,6 +80,7 @@ const Home = () => {
       dispatch(loadCityByKey(location.state.favoriteParams.key))
       dispatch(loadFiveDaysForecast(location.state.favoriteParams.key))
       setCityName(location.state.favoriteParams.name)
+      setCityKey(location.state.favoriteParams.key)
       delete location.state
     } else {
       dispatch(loadCityByKey(cityKey))
@@ -87,7 +88,7 @@ const Home = () => {
     }
 
     dispatch(loadCitySearch(citiesSearch))
-  }, [citiesSearch, currCityKey, location, dispatch, cityKey])
+  }, [citiesSearch, currCityKey, location, dispatch])
 
   return (
     <StyledContainer>
