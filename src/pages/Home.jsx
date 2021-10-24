@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
+import Switch from '@mui/material/Switch'
+
 import { useDispatch, useSelector } from 'react-redux'
 import {
   loadCitySearch,
   loadCityByKey,
   loadFiveDaysForecast,
+  loadCityByCoords,
 } from '../store/actions/weatherActions'
 import CityDetails from '../components/CityDetails'
 import FiveDaysList from '../components/FiveDaysList'
-import { useDebounce, useDebouncedCallback } from 'use-debounce'
+import { useDebouncedCallback } from 'use-debounce'
 import styled from 'styled-components'
-import { Container, Paper } from '@mui/material'
+import { useLocation } from 'react-router-dom'
 
-const StyledContainer = styled(Paper)`
+const StyledContainer = styled.div`
   margin-top: 10rem;
-  padding: 0.2rem 10rem;
+  /* padding: 0.2rem 10rem; */
+  /* border: 1px solid black; */
 `
 
 const StyledSearchContainer = styled.div`
@@ -24,80 +28,89 @@ const StyledSearchContainer = styled.div`
 `
 
 const StyledWeatherContainer = styled.div`
-  background-color: #ffff;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   padding: 3rem 2rem;
   display: flex;
   flex-direction: column;
 `
 
-const StyledWeatherDetails = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 2rem 1.5rem;
-  width: 25rem;
-`
-
 const Home = () => {
-  const [isDisabled, setIsDisabled] = useState(false)
   const [citiesSearch, setCitiesSearch] = useState('Tel-Aviv')
-  const [cityName, setCityName] = useState('Tel-Aviv')
-  const [cityKey, setCityKey] = useState('215854')
-  const { cityNames } = useSelector((state) => state.weatherModule)
-  const { fiveDaysForecast } = useSelector((state) => state.weatherModule)
+  const [checked, setIsChecked] = useState(false)
+  const { cityNames, currCityName, isFromGeo, currCityKey, fiveDaysForecast } =
+    useSelector((state) => state.weatherModule)
+  const [cityKey, setCityKey] = useState(currCityKey || '215854')
+  const [cityName, setCityName] = useState(currCityName || 'Tel-Aviv')
   const dispatch = useDispatch()
-  if (cityKey === '') setIsDisabled(true)
-
-  // function handleInputChange(event, value) {
-  //   console.log(event)
-  //   if (value !== '') {
-  //     setCitiesSearch(value)
-  //   }
-  // }
+  const location = useLocation()
 
   const inputDebounce = useDebouncedCallback((value) => {
     if (value !== '') {
       setCitiesSearch(value)
     }
-  }, 1000)
+  }, 500)
 
-  const submitCity = () => {
-    setCityName(citiesSearch)
-    dispatch(loadCityByKey(cityKey))
-    dispatch(loadFiveDaysForecast(cityKey))
+  const handleSearchCityChange = (e, option) => {
+    if (option) {
+      dispatch(loadCityByKey(option.Key))
+      dispatch(loadFiveDaysForecast(option.Key))
+      setCityKey(option.Key)
+      setCityName(option.LocalizedName)
+    } else {
+      setCityKey(currCityKey)
+      setCityName(currCityName)
+    }
+  }
+
+  const handleChange = (e) => {
+    setIsChecked(e.target.checked)
   }
 
   useEffect(() => {
-    // if (citiesSearch !== '' && citiesSearch.length > 0) {
-    dispatch(loadCitySearch(citiesSearch)) // Add only english letters
-    dispatch(loadCityByKey(cityKey))
-    dispatch(loadFiveDaysForecast(cityKey))
-    // }
-    setCityName(citiesSearch)
-  }, [dispatch, citiesSearch, cityKey])
+    if (navigator.geolocation && !isFromGeo) {
+      console.log('from gro')
+      navigator.geolocation.getCurrentPosition((position) => {
+        dispatch(loadCityByCoords(position.coords))
+        setCityName(currCityName)
+      })
+    }
+  }, [dispatch, currCityName, isFromGeo, currCityKey])
 
-  // console.log('hi')
+  useEffect(() => {
+    if (location.state) {
+      console.log('from location')
+      dispatch(loadCityByKey(location.state.favoriteParams.key))
+      dispatch(loadFiveDaysForecast(location.state.favoriteParams.key))
+      setCityName(location.state.favoriteParams.name)
+      delete location.state
+    } else {
+      console.log('not from location')
+      dispatch(loadCityByKey(currCityKey))
+      dispatch(loadFiveDaysForecast(currCityKey))
+    }
+
+    dispatch(loadCitySearch(citiesSearch))
+  }, [citiesSearch, currCityKey, location, dispatch])
+
   return (
     <StyledContainer>
       <StyledSearchContainer>
         <Autocomplete
-          getOptionDisabled={() => isDisabled}
           onInputChange={(_, value) => inputDebounce(value)}
           disablePortal
           options={cityNames}
+          isOptionEqualToValue={(option, value) => option.Key === value.Key}
           getOptionLabel={(option) => option.LocalizedName}
-          onChange={(e, option) => setCityKey(option.Key)}
+          onChange={handleSearchCityChange}
           renderInput={(params) => <TextField {...params} label='City' />}
         />
-        {/* <button onClick={submitCity}>Search</button> */}
       </StyledSearchContainer>
       <StyledWeatherContainer>
-        <CityDetails cityName={cityName} cityKey={cityKey} />
-        <FiveDaysList fiveDaysForecast={fiveDaysForecast} />
+        <Switch checked={checked} onChange={handleChange} />
+        <CityDetails cityName={cityName} cityKey={cityKey} checked={checked} />
+        <FiveDaysList fiveDaysForecast={fiveDaysForecast} checked={checked} />
       </StyledWeatherContainer>
     </StyledContainer>
   )
 }
-// export default Home
 export default Home

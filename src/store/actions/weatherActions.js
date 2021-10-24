@@ -12,10 +12,39 @@ export function loadCitySearch(key) {
 }
 
 export function loadCityByKey(locationKey) {
+  // console.log(Key, LocalizedName)
   return async (dispatch) => {
     try {
+      const favorites = _checkLocalStorage()
+      if (favorites.length) {
+        const keyFound = favorites.find((l) => l.id === locationKey)
+
+        if (keyFound) dispatch({ type: 'IS_FAVORITE', isFavorite: true })
+        else dispatch({ type: 'IS_FAVORITE', isFavorite: false })
+      }
       const city = await weatherService.getCityByCode(locationKey)
       dispatch({ type: 'SET_CITY', city })
+      dispatch({ type: 'SET_CITY_KEY', cityKey: locationKey })
+      // dispatch({ type: 'SET_CITY_NAME', currCityName: LocalizedName })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
+export function loadCityByCoords(position) {
+  return async (dispatch) => {
+    try {
+      const cityKey = await weatherService.getCityByCoords(position)
+      const city = await weatherService.getCityByCode(cityKey.Key)
+      const fiveDaysForecast = await weatherService.loadFiveDaysForecast(
+        cityKey.Key
+      )
+      dispatch({ type: 'SET_CITY', city })
+      dispatch({ type: 'SET_IS_FROM_GEO', isFromGeo: true })
+      dispatch({ type: 'SET_CITY_KEY', cityKey: cityKey.Key })
+      dispatch({ type: 'SET_CITY_NAME', cityName: cityKey.LocalizedName })
+      dispatch({ type: 'SET_FIVE_DAYS_FORECAST', fiveDaysForecast })
     } catch (err) {
       console.log(err)
     }
@@ -35,18 +64,24 @@ export function loadFiveDaysForecast(locationKey) {
   }
 }
 
-export function addToFavorites(location) {
+export function toggleFavorites(location) {
   return (dispatch) => {
     const favorites = _checkLocalStorage()
-    const locationFound = favorites.find((l) => l.id === location.id)
+    const locationFound = favorites.find((l) => l.name === location.name)
     if (!locationFound) {
       favorites.push(location)
       localStorage.setItem('favorites', JSON.stringify(favorites))
       dispatch({ type: 'ADD_FAVORITE', location })
+      dispatch({ type: 'IS_FAVORITE', isFavorite: true })
+    } else {
+      const deletedLocation = favorites.filter(
+        (loc) => loc.name !== location.name
+      )
+      localStorage.setItem('favorites', JSON.stringify(deletedLocation))
+      dispatch({ type: 'DELETE_FAVORITE', deletedLocation })
+      dispatch({ type: 'IS_FAVORITE', isFavorite: false })
     }
   }
-
-  // console.log(location)
 }
 
 export function setInitialFavorites() {

@@ -1,22 +1,28 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+
 import FiveDaysPreview from './FiveDaysPreview'
+import styled from 'styled-components'
 
-const FiveDaysList = () => {
-  const { fiveDaysForecast } = useSelector((state) => state.weatherModule)
+const FiveDaysForecast = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 3rem;
+`
 
+const FiveDaysList = ({ fiveDaysForecast, checked }) => {
   if (
-    !fiveDaysForecast.DailyForecasts ||
-    !fiveDaysForecast.DailyForecasts.length
+    !fiveDaysForecast?.DailyForecasts ||
+    !fiveDaysForecast?.DailyForecasts.length
   )
     return 'No data'
 
   return (
-    <ul className='five-days-list'>
+    <FiveDaysForecast>
       {fiveDaysForecast.DailyForecasts.map((forecast, idx) => (
-        <FiveDaysPreview forecast={forecast} key={idx} />
+        <FiveDaysPreview forecast={forecast} key={idx} checked={checked} />
       ))}
-    </ul>
+    </FiveDaysForecast>
   )
 }
 

@@ -1,10 +1,19 @@
 import React from 'react'
 import { images } from '../images'
+import styled from 'styled-components'
 
-const FiveDaysPreview = ({ forecast }) => {
-  // console.log(forecast)
-  const minTemperature =
+const StyledForecastPreview = styled.li`
+  padding: 2rem;
+  text-align: center;
+  font-size: 1.5rem;
+  border-radius: 0.5rem;
+`
+
+const FiveDaysPreview = ({ forecast, checked }) => {
+  const minCelsiusTemperature =
     Math.round(((forecast.Temperature.Minimum.Value - 32) * 5) / 9) + 'C'
+  const maxCelsiusTemperature =
+    Math.round(((forecast.Temperature.Maximum.Value - 32) * 5) / 9) + 'C'
   const forecastDay = new Date(forecast.Date).getDay()
   const weekday = new Array(7)
   weekday[0] = 'Sunday'
@@ -14,14 +23,22 @@ const FiveDaysPreview = ({ forecast }) => {
   weekday[4] = 'Thursday'
   weekday[5] = 'Friday'
   weekday[6] = 'Saturday'
-
+  if (!forecast) return <div>Loading</div>
   return (
-    <li className='card'>
+    <StyledForecastPreview>
       <p>{weekday[forecastDay]}</p>
       <img src={images[forecast.Day.Icon]} alt='weather-icon'></img>
-
-      <p> {minTemperature} - 30C </p>
-    </li>
+      {checked ? (
+        <p>
+          {forecast.Temperature.Minimum.Value}F -
+          {forecast.Temperature.Maximum.Value}F
+        </p>
+      ) : (
+        <p>
+          {minCelsiusTemperature}-{maxCelsiusTemperature}
+        </p>
+      )}
+    </StyledForecastPreview>
   )
 }
 

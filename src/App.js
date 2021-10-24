@@ -2,15 +2,12 @@ import { HashRouter, Route, Switch } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Favorites from './pages/Favorites'
 import Home from './pages/Home'
-import styled from 'styled-components'
-import { Paper } from '@mui/material'
-const StyledAppContainer = styled(Paper)`
-  height: 100vh;
-`
+
+import { Container } from '@mui/material'
 
 function App() {
   return (
-    <StyledAppContainer>
+    <Container maxWidth='xl' style={{ paddingLeft: 0, paddingRight: 0 }}>
       <HashRouter>
         <Navbar />
         <Switch>
@@ -18,7 +15,7 @@ function App() {
           <Route path='/favorites' exact component={Favorites} />
         </Switch>
       </HashRouter>
-    </StyledAppContainer>
+    </Container>
   )
 }
 

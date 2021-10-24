@@ -1,19 +1,12 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { images } from '../images'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  Typography,
-  Grid,
-  Box,
-  CardContent,
-  IconButton,
-  Card,
-  Paper,
-} from '@mui/material'
+import { Typography, Grid, Box, IconButton, Paper } from '@mui/material'
 import { styled } from '@mui/styles'
 import FavoriteIcon from '@mui/icons-material/Favorite'
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
 import makeStyles from '@mui/styles/makeStyles'
-import { addToFavorites } from '../store/actions/weatherActions'
+import { toggleFavorites } from '../store/actions/weatherActions'
 const StyledPaper = styled(Paper)({
   padding: 2,
   margin: 'auto',
@@ -21,8 +14,13 @@ const StyledPaper = styled(Paper)({
   marginBottom: 30,
 })
 
-const CityDetails = ({ cityName, cityKey }) => {
-  const { currCity } = useSelector((state) => state.weatherModule)
+const CityDetails = ({ cityName, cityKey, checked }) => {
+  const { currCity, isFavorite, currCityName } = useSelector(
+    (state) => state.weatherModule
+  )
+  const [isLiked, setIsLiked] = useState(isFavorite)
+  // const [checked, setIsChecked] = useState(false)
+
   const dispatch = useDispatch()
 
   const useStyles = makeStyles(() => ({
@@ -55,10 +53,15 @@ const CityDetails = ({ cityName, cityKey }) => {
     },
     topText: {
       textAlign: 'left',
+      fontSize: '2rem',
     },
   }))
 
   const classes = useStyles()
+
+  useEffect(() => {
+    setIsLiked(isFavorite)
+  }, [isFavorite, checked])
 
   const addFavoriteLocation = () => {
     const favLoc = {
@@ -68,35 +71,56 @@ const CityDetails = ({ cityName, cityKey }) => {
         degrees: currCity[0].Temperature.Metric.Value,
         degreesUnit: currCity[0].Temperature.Metric.Unit,
       },
+      text: currCity[0].WeatherText,
+      img: currCity[0].WeatherIcon,
     }
-    // console.log(favLoc)
-    dispatch(addToFavorites(favLoc))
+    dispatch(toggleFavorites(favLoc))
   }
 
   if (!currCity) return 'No data'
-  // console.log(currCity)
   return (
     <>
       <StyledPaper>
         <Grid container spacing={2}>
           <Grid item>
-            <IconButton color='primary'>
-              <FavoriteIcon onClick={addFavoriteLocation} />
+            <IconButton color='primary' onClick={addFavoriteLocation}>
+              {isLiked ? (
+                <FavoriteIcon style={{ fill: 'red' }} />
+              ) : (
+                <FavoriteBorderOutlinedIcon />
+              )}
             </IconButton>
           </Grid>
           <Grid item>
-            <img
-              src={images[[currCity[0].WeatherIcon]]}
-              alt='weather-icon'
-              className={classes.img}
-            />
+            {currCity[0].WeatherIcon ? (
+              <img
+                src={images[[currCity[0].WeatherIcon]]}
+                alt='weather-icon'
+                className={classes.img}
+              />
+            ) : (
+              <img
+                src='https://www.frozenropes.com/natick/wp-content/uploads/sites/11/2021/06/sun-transparent.png'
+                alt='weather-icon'
+              />
+            )}
           </Grid>
 
           <Grid item xs className={classes.topText}>
-            <Typography variant='h5'>{cityName}</Typography>
+            <Typography variant='h5'>{cityName || currCityName}</Typography>
+
+            {checked ? (
+              <>
+                {currCity[0].Temperature.Imperial.Value}
+                {currCity[0].Temperature.Imperial.Unit}
+              </>
+            ) : (
+              <>
+                {currCity[0].Temperature.Metric.Value}
+                {currCity[0].Temperature.Metric.Unit}
+              </>
+            )}
           </Grid>
-          {currCity[0].Temperature.Metric.Value}
-          {currCity[0].Temperature.Metric.Unit}
         </Grid>
         <Grid
           container

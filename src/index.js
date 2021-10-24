@@ -1,8 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './assets/scss/global.scss'
-import App from './App'
-
+import './index.css'
 import reportWebVitals from './reportWebVitals'
 import { Provider } from 'react-redux'
 import { store } from './store'
@@ -11,7 +9,6 @@ import ToggleColorMode from './components/ToggleColorMode'
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* Renders up with chosen mode */}
       <ToggleColorMode />
     </Provider>
   </React.StrictMode>,
