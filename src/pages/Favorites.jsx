@@ -4,10 +4,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setInitialFavorites } from '../store/actions/weatherActions'
 import styled from 'styled-components'
 import { images } from '../images'
+import { Typography } from '@mui/material'
 
 const FavoritesContainer = styled.ul`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 18rem));
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   gap: 1.5rem;
   padding: 1rem 3rem;
   margin-top: 4rem;
@@ -38,6 +39,10 @@ const StyledFavoritePreview = styled.li`
   font-size: 1.5rem;
   border-radius: 0.5rem;
   border: 1px solid black;
+  &:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
 `
 
 const Favorites = () => {
@@ -60,9 +65,17 @@ const Favorites = () => {
     dispatch(setInitialFavorites())
   }, [dispatch])
 
-  if (!favorites) return 'no data'
+  if (!favorites)
+    return (
+      <Typography variant='h2' textAlign='center' marginTop='4rem'>
+        No Favorites Yet
+      </Typography>
+    )
   return (
     <StyledContainer>
+      <Typography variant='h2' textAlign='center' marginTop='4rem'>
+        Favorites
+      </Typography>
       <FavoritesContainer>
         {favorites.map((favorite) => (
           <StyledFavoritePreview

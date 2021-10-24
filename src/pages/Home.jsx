@@ -68,7 +68,6 @@ const Home = () => {
 
   useEffect(() => {
     if (navigator.geolocation && !isFromGeo) {
-      console.log('from gro')
       navigator.geolocation.getCurrentPosition((position) => {
         dispatch(loadCityByCoords(position.coords))
         setCityName(currCityName)
@@ -78,19 +77,17 @@ const Home = () => {
 
   useEffect(() => {
     if (location.state) {
-      console.log('from location')
       dispatch(loadCityByKey(location.state.favoriteParams.key))
       dispatch(loadFiveDaysForecast(location.state.favoriteParams.key))
       setCityName(location.state.favoriteParams.name)
       delete location.state
     } else {
-      console.log('not from location')
-      dispatch(loadCityByKey(currCityKey))
-      dispatch(loadFiveDaysForecast(currCityKey))
+      dispatch(loadCityByKey(cityKey))
+      dispatch(loadFiveDaysForecast(cityKey))
     }
 
     dispatch(loadCitySearch(citiesSearch))
-  }, [citiesSearch, currCityKey, location, dispatch])
+  }, [citiesSearch, currCityKey, location, dispatch, cityKey])
 
   return (
     <StyledContainer>

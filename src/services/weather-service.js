@@ -14,6 +14,7 @@ const AUTO_COMPLETE_URL =
 const CURR_CITY_WEATHER_URL =
   'http://dataservice.accuweather.com/currentconditions/v1/'
 const API_KEY = 'hfPymT1xQ6G7A3rAu7GBuBsA5pbl3KtH'
+
 async function getCitiesBySearch(key) {
   try {
     const { data } = await axios.get(

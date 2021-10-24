@@ -1,4 +1,5 @@
 import React from 'react'
+import { CircularProgress, Box } from '@mui/material'
 
 import FiveDaysPreview from './FiveDaysPreview'
 import styled from 'styled-components'
@@ -15,7 +16,7 @@ const FiveDaysList = ({ fiveDaysForecast, checked }) => {
     !fiveDaysForecast?.DailyForecasts ||
     !fiveDaysForecast?.DailyForecasts.length
   )
-    return 'No data'
+    return <CircularProgress />
 
   return (
     <FiveDaysForecast>

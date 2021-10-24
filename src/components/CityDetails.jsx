@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { images } from '../images'
 import { useDispatch, useSelector } from 'react-redux'
-import { Typography, Grid, Box, IconButton, Paper } from '@mui/material'
+import {
+  Typography,
+  Grid,
+  Box,
+  IconButton,
+  Paper,
+  CircularProgress,
+} from '@mui/material'
 import { styled } from '@mui/styles'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
@@ -77,14 +84,14 @@ const CityDetails = ({ cityName, cityKey, checked }) => {
     dispatch(toggleFavorites(favLoc))
   }
 
-  if (!currCity) return 'No data'
+  if (!currCity) return <CircularProgress style={{ textAlign: 'center' }} />
   return (
     <>
       <StyledPaper>
         <Grid container spacing={2}>
           <Grid item>
             <IconButton color='primary' onClick={addFavoriteLocation}>
-              {isLiked ? (
+              {isFavorite ? (
                 <FavoriteIcon style={{ fill: 'red' }} />
               ) : (
                 <FavoriteBorderOutlinedIcon />

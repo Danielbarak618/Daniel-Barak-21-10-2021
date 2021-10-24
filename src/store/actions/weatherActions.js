@@ -12,7 +12,6 @@ export function loadCitySearch(key) {
 }
 
 export function loadCityByKey(locationKey) {
-  // console.log(Key, LocalizedName)
   return async (dispatch) => {
     try {
       const favorites = _checkLocalStorage()
@@ -25,7 +24,6 @@ export function loadCityByKey(locationKey) {
       const city = await weatherService.getCityByCode(locationKey)
       dispatch({ type: 'SET_CITY', city })
       dispatch({ type: 'SET_CITY_KEY', cityKey: locationKey })
-      // dispatch({ type: 'SET_CITY_NAME', currCityName: LocalizedName })
     } catch (err) {
       console.log(err)
     }
