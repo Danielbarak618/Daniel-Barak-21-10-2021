@@ -6,13 +6,13 @@ export const weatherService = {
   getCityByCoords,
 }
 const CURR_CITY_BY_POS_URL =
-  'http://dataservice.accuweather.com/locations/v1/cities/geoposition/search'
+  'https://dataservice.accuweather.com/locations/v1/cities/geoposition/search'
 const FIVE_DAYS_FORECAST_URL =
-  'http://dataservice.accuweather.com/forecasts/v1/daily/5day/'
+  'https://dataservice.accuweather.com/forecasts/v1/daily/5day/'
 const AUTO_COMPLETE_URL =
-  'http://dataservice.accuweather.com/locations/v1/cities/autocomplete?'
+  'https://dataservice.accuweather.com/locations/v1/cities/autocomplete?'
 const CURR_CITY_WEATHER_URL =
-  'http://dataservice.accuweather.com/currentconditions/v1/'
+  'https://dataservice.accuweather.com/currentconditions/v1/'
 const API_KEY = 'hfPymT1xQ6G7A3rAu7GBuBsA5pbl3KtH'
 
 async function getCitiesBySearch(key) {
