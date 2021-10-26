@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Daniel-Barak-21-10-2021/static/css/main.6595c493.chunk.css",
-    "main.js": "/Daniel-Barak-21-10-2021/static/js/main.9985282a.chunk.js",
-    "main.js.map": "/Daniel-Barak-21-10-2021/static/js/main.9985282a.chunk.js.map",
+    "main.js": "/Daniel-Barak-21-10-2021/static/js/main.cf841e24.chunk.js",
+    "main.js.map": "/Daniel-Barak-21-10-2021/static/js/main.cf841e24.chunk.js.map",
     "runtime-main.js": "/Daniel-Barak-21-10-2021/static/js/runtime-main.3b36f5d2.js",
     "runtime-main.js.map": "/Daniel-Barak-21-10-2021/static/js/runtime-main.3b36f5d2.js.map",
     "static/js/2.06c995d2.chunk.js": "/Daniel-Barak-21-10-2021/static/js/2.06c995d2.chunk.js",
@@ -21,6 +21,6 @@
     "static/js/runtime-main.3b36f5d2.js",
     "static/js/2.06c995d2.chunk.js",
     "static/css/main.6595c493.chunk.css",
-    "static/js/main.9985282a.chunk.js"
+    "static/js/main.cf841e24.chunk.js"
   ]
 }
